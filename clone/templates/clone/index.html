@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Cloning System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-top: 50px;
+        }
+        form {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+        h2 {
+            color: #555;
+            margin-bottom: 10px;
+        }
+        input[type="file"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .audio-player {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Voice Cloning System</h1>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Step 1: Upload Original Audio File</h2>
+        <input type="file" name="audio" accept="audio/*" required>
+        
+        <h2>Step 2: Input Text for Cloning</h2>
+        <textarea name="text" rows="4" cols="50" required></textarea><br><br>
+        
+        <button type="submit">Generate</button>
+    </form>
+    
+    {% if generated_audio_url %}
+    <div class="audio-player">
+        <h2>Generated Audio</h2>
+        <audio controls>
+            <source src="{{ generated_audio_url }}" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    {% endif %}
+</body>
+</html>
